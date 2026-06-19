@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BZdrnj9jGzM=",
+  "dgSpecHash": "ro3Nbo7utaw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ramiz.pashaiev\\FitnessTracker\\WebApplication1\\WebApplication1.csproj",
+  "projectFilePath": "C:\\Users\\ramiz.pashaiev\\FitnessTracker\\Backend\\WebApplication1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ramiz.pashaiev\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.9\\microsoft.aspnetcore.openapi.9.0.9.nupkg.sha512",
     "C:\\Users\\ramiz.pashaiev\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
