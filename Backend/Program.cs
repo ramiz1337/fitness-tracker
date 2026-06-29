@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,36 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+
+app.MapPost("/users/register", async (RegisterUserRequest request, AppDbContext db) =>
+{
+    var email = request.Email.Trim().ToLowerInvariant();
+
+    if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(request.Password))
+    {
+        return Results.BadRequest("Email and password are required.");
+    }
+
+    var exists = await db.Users.AnyAsync(user => user.Email == email);
+
+    if (exists)
+    {
+        return Results.Conflict("User already exists.");
+    }
+
+    var hasher = new PasswordHasher<User>();
+    var user = new User
+    {
+        Email = email
+    };
+
+    user.PasswordHash = hasher.HashPassword(user, request.Password);
+
+    db.Users.Add(user);
+    await db.SaveChangesAsync();
+
+    return Results.Created($"/users/{user.Id}", new UserResponse(user.Id, user.Email));
+});
 
 var summaries = new[]
 {
@@ -29,6 +60,9 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast");
 
 app.Run();
+
+record RegisterUserRequest(string Email, string Password);
+record UserResponse(int Id, string Email);
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
