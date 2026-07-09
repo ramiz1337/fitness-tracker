@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import Home from "./Pages/Home";
+import Home from "./home/page";
 
 export default function Page() {
   return (
