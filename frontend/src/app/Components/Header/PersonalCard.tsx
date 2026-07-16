@@ -22,7 +22,7 @@ export default function PersonalCard({ img, overlayText, overlayDescrition }: Ca
             </div>
             <div className={`absolute overflow-hidden 
                 bg-white border border-gray-300 p-4 transition-all 
-                ease-in-out w-full flex flex-col justify-center items-center left-0 top-0 
+                ease-in-out w-full flex flex-col justify-center items-center left-0 top-0
                 ${show ? 'opacity-100 h-full' : 'opacity-0 h-0'}`}>
                 <h1 className="font-semibold">{overlayText}</h1>
                 <a className="max-w-full truncate text-red-800" href="#">{overlayDescrition}</a>

@@ -7,44 +7,44 @@ export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-//   const [error, setError] = useState("");
-//   const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     setError("");
-//     setSuccess("");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
 
-//     try {
-//       const response = await axios.post("http://localhost:8000/api/users/register", {
-//         name,
-//         email,
-//         password,
-//       });
+    try {
+      const response = await axios.post("http://localhost:5102/users/register", {
+        name,
+        email,
+        password,
+      });
 
-//       setSuccess("Registration successful. You can now log in.");
-//       console.log("Response:", response);
-//     } catch (err) {
-//       if (err instanceof AxiosError) {
-//         setError(err.response?.data?.message || "Registration failed.");
-//       } else if (err instanceof Error) {
-//         setError(err.message);
-//       } else {
-//         setError("An unknown error occurred.");
-//       }
-//       console.error("Registration error:", err);
-//     }
-//   };
+      setSuccess("Registration successful. You can now log in.");
+      console.log("Response:", response);
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        setError(err.response?.data?.message || "Registration failed.");
+      } else if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred.");
+      }
+      console.error("Registration error:", err);
+    }
+  };
 
   return (
     <main className="h-full mt-24 grow flex items-center justify-center bg-green-50">
       <div className="bg-white p-8 shadow-lg w-full max-w-md">
         <h1 className="text-2xl font-bold text-center mb-6 text-black">Register</h1>
         <form 
-        // onSubmit={handleSubmit} 
+        onSubmit={handleSubmit} 
         className="flex flex-col space-y-4">
-          {/* {error && <p className="text-red-500 text-sm">{error}</p>}
-          {success && <p className="text-green-600 text-sm">{success}</p>} */}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {success && <p className="text-green-600 text-sm">{success}</p>}
           <div className="mb-4">
           <input
             type="text"
