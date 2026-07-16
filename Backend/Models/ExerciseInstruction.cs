@@ -1,5 +1,7 @@
 namespace WebApplication1.Models;
 
+using System.Text.Json.Serialization;
+
 public class ExerciseInstruction
 {
     public int Id { get; set; }
@@ -11,5 +13,6 @@ public class ExerciseInstruction
 
     public int ExerciseId { get; set; }
 
+    [JsonIgnore]
     public Exercise Exercise { get; set; } = null!;
 }

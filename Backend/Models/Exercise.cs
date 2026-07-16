@@ -1,5 +1,7 @@
 namespace WebApplication1.Models;
 
+using System.Text.Json.Serialization;
+
 public class Exercise
 {
     public int Id { get; set; }
