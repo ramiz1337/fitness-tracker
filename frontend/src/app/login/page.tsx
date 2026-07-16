@@ -22,7 +22,6 @@ export default function Login() {
     setSuccess("");
 
     try {
-      // 1) Login request
       const loginResponse = await axios.post(
         "http://localhost:5102/users/login",
         {
@@ -35,7 +34,6 @@ export default function Login() {
       console.log("LOGIN RESPONSE:", loginResponse.data);
 
 
-      // Backend accessToken döndürüyor
       const token = loginResponse.data.accessToken;
 
 
@@ -44,7 +42,6 @@ export default function Login() {
       }
 
 
-      // 2) Mevcut kullanıcıyı al
       const userResponse = await axios.get(
         "http://localhost:5102/users/me",
         {
@@ -61,7 +58,6 @@ export default function Login() {
       const user = userResponse.data;
 
 
-      // 3) React Auth Kit'e login yap
       signIn({
         token: token,
         expiresIn: 3600,
@@ -74,7 +70,6 @@ export default function Login() {
       });
 
 
-      // 4) Kullanıcı bilgisini sakla
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -89,7 +84,6 @@ export default function Login() {
       setSuccess("Login successful! Redirecting...");
 
 
-      // 5) Ana sayfaya git
       setTimeout(() => {
         router.push("/");
       }, 1500);

@@ -1,10 +1,12 @@
+"use client";
+
 import Card from "../Components/Header/Card";
 import HeaderCard from "../Components/Header/HeaderCard";
 import PersonalCard from "../Components/Header/PersonalCard";
-// import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import { useIsAuthenticated } from "react-auth-kit";
 
 export default function Home() {
-    // const isAuthenticated = useIsAuthenticated();
+    const isAuthenticated = useIsAuthenticated();
 
     return (
         <>
@@ -18,13 +20,20 @@ export default function Home() {
                             <HeaderCard img="healicon.webp">Weight Loss</HeaderCard>
                             <HeaderCard img="nutritionicon.webp">Nutrition</HeaderCard>   
                         </div>
+                        {!isAuthenticated() && (
+                            <>
+                                <p className="text-white my-2 uppercase">
+                                To use Fitness planner for free
+                                </p>
 
-                        {/* {!isAuthenticated && ( */}
-                            {/* <> */}
-                                <p className="text-white my-2 uppercase">To use Fitness planner for free</p>
-                                <a className="bg-green-600 hover:bg-green-400 px-3 py-1 rounded font-semibold text-white text-sm" href="/register">Sign Up Now</a>
-                            {/* </>
-                        )} */}
+                                <a
+                                className="bg-green-600 hover:bg-green-400 px-3 py-1 rounded font-semibold text-white text-sm"
+                                href="/register"
+                                >
+                                Sign Up Now
+                                </a>
+                            </>
+                        )}
                     </div>
                     <div className="w-1/2 flex justify-center items-center">
                         <img src="burn-man.webp" alt="" />
@@ -54,9 +63,14 @@ export default function Home() {
                 <h1 className="text-3xl uppercase tect-primary font-bold text-gray-800">Create Your Workout And Share It With The World!</h1>
                 <p className="max-w-2xl">From sets, reps, tempo, and rest times, you have complete control over how you want to write it and how you want to present it.</p>
 
-                {/* {!isAuthenticated && ( */}
-                    <a className="bg-green-600 hover:bg-green-400 px-3 py-1 rounded font-semibold text-white text-sm" href="/register">Get Started</a>
-                {/* )} */}
+                {!isAuthenticated() && (
+                <a
+                    className="bg-green-600 hover:bg-green-400 px-3 py-1 rounded font-semibold text-white text-sm"
+                    href="/register"
+                >
+                    Get Started
+                </a>
+                )}
             </section>
 
             <section className="max-w-6xl mb-20 mx-auto">
