@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using WebApplication1.DTOs;
+using WebApplication1.Models;
 
 [ApiController]
 [Route("users")]

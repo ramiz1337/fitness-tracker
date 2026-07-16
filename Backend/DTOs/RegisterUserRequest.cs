@@ -1,5 +1,4 @@
 namespace WebApplication1.DTOs;
-
 using System.ComponentModel.DataAnnotations;
 
 public class RegisterUserRequest
