@@ -1,65 +1,65 @@
 "use client"
 
 import { useState } from "react";
-// import axios, { AxiosError } from "axios";
-// import useSignIn from "react-auth-kit/hooks/useSignIn";
-// import { useNavigate } from "react-router-dom";
+import axios, { AxiosError } from "axios";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("faco@gmail.com");
   const [password, setPassword] = useState("StrongPass1!");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  // const signIn = useSignIn();
-  // const navigate = useNavigate();
+  const signIn = useSignIn();
+  const navigate = useNavigate();
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setError("");
-  //   setSuccess("");  // Clear previous messages
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");  // Clear previous messages
   
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:8000/api/users/login",
+    try {
+      const response = await axios.post(
+        "http://localhost:5102/users/login",
         
-  //       { email, password }
-  //     );
-  //     console.log("BACKEND'DEN GELEN CEVAP:", response.data);
-  //     setSuccess("Login successful! Redirecting...");
+        { email, password }
+      );
+      console.log("BACKEND'DEN GELEN CEVAP:", response.data);
+      setSuccess("Login successful! Redirecting...");
 
-  //     console.log(response);
+      console.log(response);
       
 
-  //    localStorage.setItem("user", JSON.stringify({
-  //     id: response.data.user.id,
-  //     name: response.data.user.name, // <-- Bunu ekliyoruz
-  //     email: response.data.user.email,
-  //     token: response.data.token
-  //    }));
+     localStorage.setItem("user", JSON.stringify({
+      id: response.data.user.id,
+      name: response.data.user.name, // <-- Bunu ekliyoruz
+      email: response.data.user.email,
+      token: response.data.token
+     }));
   
-  //     signIn({
-  //       auth: {
-  //         token: response.data.token,
-  //         type: "Bearer",
-  //       },
-  //       userState: {
-  //         email,
-  //       },
-  //     });
-  //     setTimeout(() => {
-  //       navigate("/"); // or your protected route
-  //     }, 1500); // 1.5 seconds delay to show success message
-  //   } catch (err) {
-  //     if (err instanceof AxiosError) {
-  //       setError(err.response?.data?.message || "Login failed.");
-  //     } else if (err instanceof Error) {
-  //       setError(err.message);
-  //     } else {
-  //       setError("An unknown error occurred.");
-  //     }
-  //     console.error("Login error:", err);
-  //   }
-  // };
+      signIn({
+        auth: {
+          token: response.data.token,
+          type: "Bearer",
+        },
+        userState: {
+          email,
+        },
+      });
+      setTimeout(() => {
+        navigate("/"); // or your protected route
+      }, 1500); // 1.5 seconds delay to show success message
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        setError(err.response?.data?.message || "Login failed.");
+      } else if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred.");
+      }
+      console.error("Login error:", err);
+    }
+  };
   
 
   return (
@@ -67,7 +67,7 @@ export default function Login() {
       <div className="bg-white p-8 shadow-lg w-full max-w-md">
         <h1 className="text-2xl font-bold text-center mb-6 text-black">Welcome</h1>
         <form 
-            // onSubmit={handleSubmit}    
+            onSubmit={handleSubmit}    
             className="flex flex-col space-y-4">
           {error && <p className="text-red-500 text-sm">{error}</p>}
           {success && <p className="text-green-500 text-sm">{success}</p>}
