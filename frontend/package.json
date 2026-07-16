@@ -15,7 +15,7 @@
     "axios": "^1.18.1",
     "next": "16.2.9",
     "react": "19.2.4",
-    "react-auth-kit": "^4.0.2-alpha.11",
+    "react-auth-kit": "^2.12.7",
     "react-dom": "19.2.4",
     "react-router-dom": "^7.18.0"
   },
