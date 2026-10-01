@@ -17,6 +17,9 @@ public class UserController : ControllerBase
             Id = User.FindFirstValue(
                 ClaimTypes.NameIdentifier),
 
+            Name = User.FindFirstValue(
+                ClaimTypes.Name),
+
             Email = User.FindFirstValue(
                 ClaimTypes.Email)
         });

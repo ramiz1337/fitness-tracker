@@ -32,6 +32,7 @@ public class AuthController : ControllerBase
 
         var user = new User
         {
+            Name = request.Name.Trim(),
             Email = email
         };
 
@@ -48,6 +49,7 @@ public class AuthController : ControllerBase
 
         return Ok(new UserResponse(
             user.Id,
+            user.Name,
             user.Email
         ));
     }
@@ -57,9 +59,11 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login(
         LoginUserRequest request)
     {
+        var email = request.Email.Trim().ToLowerInvariant();
+
         var user = await _db.Users
             .FirstOrDefaultAsync(
-                x => x.Email == request.Email);
+                x => x.Email == email);
 
 
         if (user == null)

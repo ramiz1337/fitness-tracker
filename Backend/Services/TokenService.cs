@@ -28,6 +28,11 @@ public class TokenService
             new Claim(
                 ClaimTypes.Email,
                 user.Email
+            ),
+
+            new Claim(
+                ClaimTypes.Name,
+                user.Name
             )
         };
 

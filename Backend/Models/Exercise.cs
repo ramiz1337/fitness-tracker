@@ -8,6 +8,8 @@ public class Exercise
 
     public string Name { get; set; } = string.Empty;
 
+    public string? ImageUrl { get; set; } = string.Empty;
+
     public int Reps { get; set; }
 
     public int Sets { get; set; }
