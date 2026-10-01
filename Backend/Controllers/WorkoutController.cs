@@ -111,7 +111,11 @@ public class WorkoutController : ControllerBase
                 Order = index + 1,
                 Sets = exercise.Sets,
                 Reps = exercise.Reps
-            }).ToList()
+            }).ToList(),
+            Users = new List<WorkoutUser>
+            {
+                new() { UserId = userId }
+            }
         };
 
         _db.Workouts.Add(workout);
