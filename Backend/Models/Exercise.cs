@@ -28,6 +28,8 @@ public class Exercise
     public ICollection<ExerciseMuscle> ExerciseMuscles { get; set; } = new List<ExerciseMuscle>();
 
     public ICollection<ExerciseInstruction> Instructions { get; set; } = new List<ExerciseInstruction>();
+
+    public ICollection<WorkoutExercise> WorkoutExercises { get; set; } = new List<WorkoutExercise>();
 }
 
 

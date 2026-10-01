@@ -18,6 +18,12 @@ public class AppDbContext : DbContext
 
     public DbSet<Muscle> Muscles => Set<Muscle>();
 
+    public DbSet<Workout> Workouts => Set<Workout>();
+
+    public DbSet<WorkoutExercise> WorkoutExercises => Set<WorkoutExercise>();
+
+    public DbSet<WorkoutUser> WorkoutUsers => Set<WorkoutUser>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>()
@@ -45,5 +51,41 @@ public class AppDbContext : DbContext
             .HasOne(em => em.Muscle)
             .WithMany(m => m.ExerciseMuscles)
             .HasForeignKey(em => em.MuscleId);
+
+        modelBuilder.Entity<Workout>()
+            .HasOne(w => w.Author)
+            .WithMany(u => u.AuthoredWorkouts)
+            .HasForeignKey(w => w.AuthorId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<WorkoutExercise>()
+            .HasKey(we => new { we.WorkoutId, we.ExerciseId });
+
+        modelBuilder.Entity<WorkoutExercise>()
+            .HasOne(we => we.Workout)
+            .WithMany(w => w.WorkoutExercises)
+            .HasForeignKey(we => we.WorkoutId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<WorkoutExercise>()
+            .HasOne(we => we.Exercise)
+            .WithMany(e => e.WorkoutExercises)
+            .HasForeignKey(we => we.ExerciseId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<WorkoutUser>()
+            .HasKey(wu => new { wu.WorkoutId, wu.UserId });
+
+        modelBuilder.Entity<WorkoutUser>()
+            .HasOne(wu => wu.Workout)
+            .WithMany(w => w.Users)
+            .HasForeignKey(wu => wu.WorkoutId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<WorkoutUser>()
+            .HasOne(wu => wu.User)
+            .WithMany(u => u.UsedWorkouts)
+            .HasForeignKey(wu => wu.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
