@@ -160,6 +160,66 @@ public class WorkoutController : ControllerBase
         return NoContent();
     }
 
+
+
+    [Authorize]
+    [HttpPost("comment")]
+    public async Task<ActionResult<CommentResponse>> CommentCreate(CreateCommentRequest request)
+    {
+        var userId = CurrentUserId();
+
+        if (string.IsNullOrWhiteSpace(request.Text))
+            return BadRequest("Comment text cannot be empty.");
+
+        var workout = await _db.Workouts
+            .Include(w => w.Author)
+            .FirstOrDefaultAsync(w =>
+                w.Id == request.WorkoutId &&
+                (w.IsPublic ||
+                 w.AuthorId == userId ||
+                 w.Users.Any(u => u.UserId == userId)));
+
+        if (workout == null)
+            return NotFound("Workout not found or not accessible.");
+
+        var alreadyCommented = await _db.Comments
+            .AnyAsync(c =>
+                c.AuthorId == userId &&
+                c.WorkoutId == request.WorkoutId);
+
+        if (alreadyCommented)
+            return Conflict("User has already commented on this workout.");
+
+        var comment = new Comment
+        {
+            WorkoutId = request.WorkoutId,
+            Text = request.Text.Trim(),
+            Stars = request.Stars,
+            AuthorId = userId,
+        };
+
+        _db.Comments.Add(comment);
+        await _db.SaveChangesAsync();
+
+        return Created(
+            $"/workouts/comment/workout/{comment.WorkoutId}",
+            ToCommentResponse(comment, User.FindFirstValue(ClaimTypes.Name) ?? "Unknown"));
+    }
+
+    [AllowAnonymous]
+    [HttpGet("comment/workout/{workoutId:int}")]
+    public async Task<ActionResult<IEnumerable<CommentResponse>>> GetCommentsByWorkout(int workoutId)
+    {
+        var comments = await _db.Comments
+            .AsNoTracking()
+            .Include(c => c.Author)
+            .Where(c => c.WorkoutId == workoutId)
+            .OrderByDescending(c => c.CreatedAt)
+            .ToListAsync();
+
+        return Ok(comments.Select(c => ToCommentResponse(c, c.Author.Name)));
+    }
+
     private IQueryable<Workout> GetWorkoutQuery()
     {
         return _db.Workouts
@@ -194,5 +254,17 @@ public class WorkoutController : ControllerBase
                     we.Sets,
                     we.Reps))
                 .ToList());
+    }
+
+    private static CommentResponse ToCommentResponse(Comment comment, string authorName)
+    {
+        return new CommentResponse(
+            comment.Id,
+            comment.Text,
+            comment.Stars,
+            comment.CreatedAt,
+            comment.AuthorId,
+            authorName,
+            comment.WorkoutId);
     }
 }

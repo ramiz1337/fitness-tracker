@@ -16,5 +16,6 @@ public class Workout
     public User Author { get; set; } = null!;
 
     public ICollection<WorkoutExercise> WorkoutExercises { get; set; } = new List<WorkoutExercise>();
+    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     public ICollection<WorkoutUser> Users { get; set; } = new List<WorkoutUser>();
 }

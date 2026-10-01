@@ -20,6 +20,8 @@ public class AppDbContext : DbContext
 
     public DbSet<Workout> Workouts => Set<Workout>();
 
+    public DbSet<Comment> Comments => Set<Comment>();
+
     public DbSet<WorkoutExercise> WorkoutExercises => Set<WorkoutExercise>();
 
     public DbSet<WorkoutUser> WorkoutUsers => Set<WorkoutUser>();
@@ -30,6 +32,9 @@ public class AppDbContext : DbContext
             .HasIndex(user => user.Email)
             .IsUnique();
 
+        modelBuilder.Entity<Comment>()
+            .HasIndex(c => new { c.AuthorId, c.WorkoutId })
+            .IsUnique();
 
         modelBuilder.Entity<ExerciseInstruction>()
             .HasOne(i => i.Exercise)
@@ -86,6 +91,19 @@ public class AppDbContext : DbContext
             .HasOne(wu => wu.User)
             .WithMany(u => u.UsedWorkouts)
             .HasForeignKey(wu => wu.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.Author)
+            .WithMany(u => u.Comments)
+            .HasForeignKey(c => c.AuthorId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.Workout)
+            .WithMany(w => w.Comments)
+            .HasForeignKey(c => c.WorkoutId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

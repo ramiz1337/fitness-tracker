@@ -8,5 +8,6 @@ public class User
     public string PasswordHash { get; set; } = string.Empty;
 
     public ICollection<Workout> AuthoredWorkouts { get; set; } = new List<Workout>();
+    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     public ICollection<WorkoutUser> UsedWorkouts { get; set; } = new List<WorkoutUser>();
 }
