@@ -23,3 +23,96 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.fc {
+  --fc-border-color: #e7e5e4;
+  --fc-page-bg-color: #ffffff;
+  --fc-neutral-bg-color: #f6f8f4;
+  --fc-today-bg-color: #f0fdf4;
+  color: #292524;
+  font-family: inherit;
+}
+
+.fc .fc-toolbar {
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 0 0 1.25rem;
+}
+
+.fc .fc-toolbar-title {
+  color: #14251c;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 800;
+}
+
+.fc .fc-button-primary {
+  border-color: #365c42;
+  background-color: #365c42;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.fc .fc-button-primary:hover,
+.fc .fc-button-primary:focus {
+  border-color: #24442e;
+  background-color: #24442e;
+  box-shadow: none;
+}
+
+.fc .fc-button-primary:disabled {
+  border-color: #a8b5aa;
+  background-color: #a8b5aa;
+}
+
+.fc .fc-col-header-cell-cushion {
+  padding: 0.8rem 0.25rem;
+  color: #57534e;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.fc .fc-timegrid-slot-label-cushion,
+.fc .fc-timegrid-axis-cushion {
+  color: #78716c;
+  font-size: 0.75rem;
+}
+
+.fc .fc-timegrid-now-indicator-line {
+  border-color: #16a34a;
+}
+
+.fc .fc-timegrid-now-indicator-arrow {
+  border-color: #16a34a;
+  border-bottom-color: transparent;
+  border-top-color: transparent;
+}
+
+.fc .fc-highlight {
+  background: #dcfce7;
+}
+
+.fc .fc-event {
+  border-radius: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .fc .fc-toolbar {
+    justify-content: center;
+  }
+
+  .fc .fc-toolbar-chunk {
+    display: flex;
+    justify-content: center;
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: 1.1rem;
+  }
+
+  .fc .fc-button {
+    padding: 0.35rem 0.55rem;
+    font-size: 0.8rem;
+  }
+}
