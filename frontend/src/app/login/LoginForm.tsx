@@ -6,8 +6,8 @@ import { useSignIn } from "react-auth-kit";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
-  const [email, setEmail] = useState("fac2o@gmail.com");
-  const [password, setPassword] = useState("faco123123.");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
