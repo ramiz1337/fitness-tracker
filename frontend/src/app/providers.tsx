@@ -1,6 +1,11 @@
 "use client";
 
-import { AuthProvider } from "react-auth-kit";
+import dynamic from "next/dynamic";
+
+const AuthProvider = dynamic(
+  () => import("react-auth-kit").then((module) => module.AuthProvider),
+  { ssr: false },
+);
 
 export default function Providers({
   children,

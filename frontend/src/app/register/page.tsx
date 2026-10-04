@@ -2,18 +2,18 @@
 
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    setSuccess("");
 
     try {
       const response = await axios.post("http://localhost:5102/users/register", {
@@ -22,8 +22,9 @@ export default function Register() {
         password,
       });
 
-      setSuccess("Registration successful. You can now log in.");
-      console.log("Response:", response);
+      if (response.status >= 200 && response.status < 300) {
+        router.replace("/login");
+      }
     } catch (err) {
       if (err instanceof AxiosError) {
         setError(err.response?.data?.message || "Registration failed.");
@@ -44,7 +45,6 @@ export default function Register() {
         onSubmit={handleSubmit} 
         className="flex flex-col space-y-4">
           {error && <p className="text-red-500 text-sm">{error}</p>}
-          {success && <p className="text-green-600 text-sm">{success}</p>}
           <div className="mb-4">
           <input
             type="text"
