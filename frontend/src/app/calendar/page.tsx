@@ -302,10 +302,18 @@ export default function CalendarPage() {
             <form onSubmit={saveEvent} className="mt-6 space-y-4">
               <label className="block text-sm font-bold text-stone-700">
                 Workout plan
-                <select required value={selectedWorkoutId} onChange={(event) => setSelectedWorkoutId(event.target.value)} className="mt-2 w-full rounded-xl border border-stone-300 bg-white px-4 py-3 font-normal outline-none focus:border-green-600 focus:ring-2 focus:ring-green-100">
-                  <option value="" disabled>Select a saved workout</option>
-                  {workouts.map((workout) => <option key={workout.id} value={workout.id}>{workout.name}</option>)}
-                </select>
+                <span className="relative mt-2 block">
+                  <select
+                    required
+                    value={selectedWorkoutId}
+                    onChange={(event) => setSelectedWorkoutId(event.target.value)}
+                    className="w-full appearance-none rounded-xl border border-stone-200 bg-gradient-to-b from-white to-green-50/60 px-4 py-3 pr-10 font-normal text-stone-800 shadow-sm outline-none transition hover:border-green-300 hover:shadow focus:border-green-600 focus:ring-2 focus:ring-green-100"
+                  >
+                    <option value="" disabled>Select a saved workout</option>
+                    {workouts.map((workout) => <option key={workout.id} value={workout.id}>{workout.name}</option>)}
+                  </select>
+                  <span aria-hidden="true" className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-green-800">⌄</span>
+                </span>
               </label>
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="block text-sm font-bold text-stone-700">
